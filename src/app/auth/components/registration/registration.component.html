@@ -1,1 +1,10 @@
 <p>registration works!</p>
+
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <input type="text" name="firstName" placeholder="First name" formControlName ="firstName">
+    <input type="text" name="lastName" placeholder="Last name" formControlName ="lastName">
+    <input type="text" name="email" placeholder="Email" formControlName ="email">
+    <input type="text" name="password" placeholder="password" formControlName ="password">
+
+    <button [disabled]='registrationForm.invalid' type="submit" >Submit</button>
+</form>
