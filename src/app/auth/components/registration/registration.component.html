@@ -1,10 +1,41 @@
 <p>registration works!</p>
-
-<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+<!-- <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <input type="text" name="firstName" placeholder="First name" formControlName ="firstName">
+    <span *ngIf="registrationForm.get('firstName').hasError('required')">Enter First Name</span>
     <input type="text" name="lastName" placeholder="Last name" formControlName ="lastName">
     <input type="text" name="email" placeholder="Email" formControlName ="email">
-    <input type="text" name="password" placeholder="password" formControlName ="password">
+    <input class="password" type="text" name="password" placeholder="password" formControlName ="password">
 
     <button [disabled]='registrationForm.invalid' type="submit" >Submit</button>
-</form>
+</form> -->
+<!-- <ng-container *ngIf="registrationForm && registrationForm.get('password').invalid && registrationForm.get('password').errors && 
+        (registrationForm.get('password').dirty || registrationForm.get('password').touched)">
+    <small class="password"
+        *ngIf="registrationForm.get('password').hasError('required')">
+        password is required.
+    </small>
+    <app-validation-errors [errors]="registrationForm.get('password')!.errors!"></app-validation-errors>
+    <small class="password"
+        *ngIf="registrationForm.get('password').hasError('minlength')">
+        The minimum length for this field is {{registrationForm.get('password')!.errors!.minlength.requiredLength}} characters.
+    </small>
+    <small class="password" 
+        *ngIf="registrationForm.get('password')!.hasError('notStrong') && !registrationForm.get('password')!.hasError('minlength') ">
+        {{ registrationForm.get('password')!.errors!.notStrong.message}}
+    </small>
+</ng-container> -->
+<div class="container">
+    <h4 class="pb-2">Registration Form</h4>
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+   
+    <div class="form-group">
+      <label for="exampleInputEmail">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email" formControlName ="firstName">
+
+      <span *ngIf="registrationForm.get('firstName')?.hasError('required')">Enter First Name</span>
+
+    </div>
+   
+    <button type="submit" [disabled]='registrationForm.invalid' class="btn btn-primary">Submit</button>
+  </form>
+</div>
