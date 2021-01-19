@@ -6,6 +6,12 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 
+import { HttpClientModule } from '@angular/common/http';
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { DataService } from './core/services/data.service';
+import { HttpClientUserService } from '@app/core/';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -13,10 +19,15 @@ import { SharedModule } from './shared/shared.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      DataService, { dataEncapsulation: false }
+    ),
     CoreModule,
-    SharedModule
+    SharedModule,
+    
   ],
-  providers: [],
+  providers: [HttpClientUserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
