@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-validation-errors',
@@ -7,13 +7,13 @@ import { ValidationErrors } from '@angular/forms';
   styleUrls: ['./validation-errors.component.css']
 })
 export class ValidationErrorsComponent implements OnInit {
-  @Input() errors!: ValidationErrors;
+  // @Input() errors?: ValidationErrors;
+  @Input() control!: AbstractControl;
   constructor() {
-    
+
    }
 
   ngOnInit(): void {
-    console.warn(this.errors);
   }
 
 }

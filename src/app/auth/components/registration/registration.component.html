@@ -29,13 +29,43 @@
 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
    
     <div class="form-group">
-      <label for="exampleInputEmail">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email" formControlName ="firstName">
+        <label for="firstName">First name</label>
+        <input type="text" class="form-control" id="firstName"  placeholder="First name" formControlName ="firstName">
+  
+        <app-validation-errors [control]="registrationForm.get('firstName')!"></app-validation-errors>
+  
+    </div>
 
-      <span *ngIf="registrationForm.get('firstName')?.hasError('required')">Enter First Name</span>
-
+    <div class="form-group">
+        <label for="lastName">Last name</label>
+        <input type="text" class="form-control" id="lastName"  placeholder="First name" formControlName ="lastName">
+  
+        <app-validation-errors [control]="registrationForm.get('lastName')!"></app-validation-errors>
+  
     </div>
    
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" formControlName ="email">
+
+      <app-validation-errors [control]="registrationForm.get('email')!"></app-validation-errors>
+
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password" formControlName ="password">
+        <app-validation-errors [control]="registrationForm.get('password')!"></app-validation-errors>
+    </div>
+
+    <div class="form-group">
+        <label for="role">Select role</label>
+        <select class="custom-select" id="role" (change)="changeRole($event)" formControlName="role">
+            <option *ngFor="let role of roles" [ngValue]="roles">{{role}}</option>
+        </select>
+        <app-validation-errors [control]="registrationForm.get('role')!"></app-validation-errors>
+    </div>
+
     <button type="submit" [disabled]='registrationForm.invalid' class="btn btn-primary">Submit</button>
   </form>
 </div>

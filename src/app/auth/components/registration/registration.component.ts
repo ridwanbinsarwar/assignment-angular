@@ -7,24 +7,35 @@ import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms'
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+  
   public registrationForm: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+  roles: any = ['USER', 'ADMIN']
+
+  constructor(public formBuilder: FormBuilder) {
     this.registrationForm = formBuilder.group({
-      firstName: ['',Validators.required ],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email, Validators.pattern('[a-z0-9.@]*')]],
-      password: ['',[Validators.required, Validators.minLength(6), this.validatePassword]]
+      
+      firstName: ['', [Validators.required, this.noWhitespaceValidator ]],
+      lastName:  ['', [Validators.required, this.noWhitespaceValidator]],
+      email:     ['', [Validators.required, Validators.email, Validators.pattern('[a-z0-9.@]*')]],
+      password:  ['', [Validators.required, Validators.minLength(6), this.validatePassword, this.noWhitespaceValidator]],
+      role:      ['',  Validators.required]
 
     });
    }
 
-  ngOnInit(): void {
-    // this.registrationForm =  new FormGroup({
-    //   'firstName': new FormControl('',Validators.required ),
-    //   'lastName': new FormControl('', Validators.required),
-    //   'email': new FormControl('', [Validators.required, Validators.email, Validators.pattern('[a-z0-9.@]*')]),
-    //   'password': new FormControl('',[Validators.required, Validators.minLength(6), this.validatePassword])
-    // })
+  
+  ngOnInit(): void {}
+
+  // Choose role using select dropdown
+  changeRole(e: any) {
+    console.log(e.value)
+    this.registrationForm.get("role")?.setValue(e.target.value, {
+      onlySelf: true
+    })
+  }
+  // Getter method to access formcontrols
+  get roleName() {
+    return this.registrationForm.get('role');
   }
 
   onSubmit() {
@@ -39,5 +50,13 @@ export class RegistrationComponent implements OnInit {
     }
     return null;
   }
+
+  public noWhitespaceValidator(control: FormControl) {
+    let isValid: boolean = true;
+    if (control.value.charAt(0) == ' '){
+      isValid = false;
+    }
+    return isValid ? null : { 'whitespace': true };
+}
 
 }
