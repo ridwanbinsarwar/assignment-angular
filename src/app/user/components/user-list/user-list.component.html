@@ -10,10 +10,16 @@
         </thead>
         <tbody *ngFor="let user of users">
             <tr>
-                <th scope="row">{{ user.id }}</th>
-                <td>{{ user.email }}</td>
-                <td>{{ user.lastName }}</td>
-            </tr>
+                <th scope="row">{{ user.email }}</th>
+                <td  class="w-25 p-3">{{ user.firstName }}</td>
+                <td  class="w-25 p-3">{{ user.lastName }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" 
+                        (click)="toUpdateUser(user.firstName, user.lastName, user.email, user.password, user.role)">
+                        Edit
+                    </button>
+                </td>
+              </tr>
         </tbody>
     </table>
 </div>

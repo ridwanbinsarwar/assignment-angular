@@ -12,6 +12,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DataService } from './core/services/data.service';
 // import { HttpClientUserService } from '@app/core/';
 import { HttpClientUserService } from "./core/services/http-client-user.service";
+import { UserTransferService } from './core/services/user-transfer.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { HttpClientUserService } from "./core/services/http-client-user.service"
     SharedModule,
     
   ],
-  providers: [HttpClientUserService],
+  providers: [HttpClientUserService, UserTransferService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

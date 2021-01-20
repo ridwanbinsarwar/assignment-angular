@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/core/models/user';
 // import { HttpClientUserService } from '@app/core/';
 import { HttpClientUserService } from '../../../core/services/http-client-user.service';
+import { UserTransferService } from '../../../core/services/user-transfer.service';
+
 
 @Component({
   selector: 'app-user-list',
@@ -12,7 +15,11 @@ export class UserListComponent implements OnInit {
 
   users: User[] = [];
  
-  constructor(private userService: HttpClientUserService) { }
+  constructor(
+    private userService: HttpClientUserService,
+    private userTransferService: UserTransferService,
+    private router: Router
+    ) { }
  
   ngOnInit() {
     this.getUsers();
@@ -22,6 +29,12 @@ export class UserListComponent implements OnInit {
     this.userService.getUsers().subscribe(data => { 
       this.users = data;
     });    
+  }
+
+  toUpdateUser(firstName: string, lastName: string, email: string, password: string, role: string) {      
+    const user = {id: email, firstName: firstName, lastName: lastName, email: email, password: password, role: role };
+    this.userTransferService.setUser(user);
+    this.router.navigateByUrl("/user/update");
   }
 
 }

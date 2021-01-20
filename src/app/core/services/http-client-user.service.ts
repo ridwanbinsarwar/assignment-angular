@@ -31,7 +31,7 @@ export class HttpClientUserService extends UserService {
   }
  
   addUser(firstName: string, lastName: string, email: string, password: string, role: string): Observable<User> {
-    const User = { firstName, lastName, email, password, role };
+    const User = { id:email, firstName, lastName, email, password, role };
  
     return this.http.post<User>(this.UsersUrl, User, cudOptions).pipe(
       catchError(this.handleError)
@@ -39,8 +39,8 @@ export class HttpClientUserService extends UserService {
   }
  
   deleteUser(User: string | User): Observable<User> {
-    const id = typeof User === 'string' ? User : User.email;
-    const url = `${this.UsersUrl}/${id}`;
+    const email = typeof User === 'string' ? User : User.email;
+    const url = `${this.UsersUrl}/${email}`;
  
     return this.http.delete<User>(url, cudOptions).pipe(
       catchError(this.handleError)
@@ -58,7 +58,8 @@ export class HttpClientUserService extends UserService {
     );
   }
  
-  updateUser(User: User): Observable<User> {
+  updateUser(firstName: string, lastName: string, email: string, password: string, role: string): Observable<User> {
+    const User = {id:email, firstName, lastName, email, password, role };
     return this.http.put<User>(this.UsersUrl, User, cudOptions).pipe(
       catchError(this.handleError)
     );
