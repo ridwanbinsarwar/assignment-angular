@@ -23,23 +23,23 @@ export class HttpClientUserService extends UserService {
   }
  
   // get by id - will 404 when id not found
-  getUser(id: number): Observable<User> {
-    const url = `${this.UsersUrl}/${id}`;
+  getUser(email: string): Observable<User> {
+    const url = `${this.UsersUrl}/${email}`;
     return this.http.get<User>(url).pipe(
       catchError(this.handleError)
     );
   }
  
-  addUser(name: string, episode: string): Observable<User> {
-    const User = { name, episode };
+  addUser(firstName: string, lastName: string, email: string, password: string, role: string): Observable<User> {
+    const User = { firstName, lastName, email, password, role };
  
     return this.http.post<User>(this.UsersUrl, User, cudOptions).pipe(
       catchError(this.handleError)
     );
   }
  
-  deleteUser(User: number | User): Observable<User> {
-    const id = typeof User === 'number' ? User : User.id;
+  deleteUser(User: string | User): Observable<User> {
+    const id = typeof User === 'string' ? User : User.email;
     const url = `${this.UsersUrl}/${id}`;
  
     return this.http.delete<User>(url, cudOptions).pipe(

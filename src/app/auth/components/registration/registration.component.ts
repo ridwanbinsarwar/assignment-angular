@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms'
+import { Router } from '@angular/router';
+import { HttpClientUserService } from '../../../core/services/http-client-user.service';
+
 
 @Component({
   selector: 'app-registration',
@@ -11,8 +14,12 @@ export class RegistrationComponent implements OnInit {
   public registrationForm: FormGroup;
   roles: any = ['USER', 'ADMIN']
 
-  constructor(public formBuilder: FormBuilder) {
-    this.registrationForm = formBuilder.group({
+  constructor(
+    private router: Router,
+    private userService: HttpClientUserService, 
+    public formBuilder: FormBuilder, ) {
+    
+      this.registrationForm = formBuilder.group({
       
       firstName: ['', [Validators.required, this.noWhitespaceValidator ]],
       lastName:  ['', [Validators.required, this.noWhitespaceValidator]],
@@ -41,6 +48,20 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.registrationForm.value);
+    if (this.registrationForm.valid ) { 
+      const firstName = this.registrationForm.get('firstName')?.value;
+      const lastName = this.registrationForm.get('lastName')?.value;
+      const email = this.registrationForm.get('email')?.value;
+      const password = this.registrationForm.get('password')?.value;
+      const role = this.registrationForm.get('role')?.value;
+ 
+      this.userService.addUser(firstName, lastName, email, password, role).subscribe(data => {
+        console.warn(data);
+
+      });
+
+      this.router.navigateByUrl("/user/list");
+    }
   }
 
    // custom validator to check if password is strong
