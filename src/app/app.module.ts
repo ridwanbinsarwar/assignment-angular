@@ -10,7 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DataService } from './core/services/data.service';
-import { HttpClientUserService } from '@app/core/';
+// import { HttpClientUserService } from '@app/core/';
+import { HttpClientUserService } from "./core/services/http-client-user.service";
 
 @NgModule({
   declarations: [
