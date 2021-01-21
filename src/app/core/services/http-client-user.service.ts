@@ -11,11 +11,16 @@ const cudOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/jso
 @Injectable()
  
 export class HttpClientUserService extends UserService {
+  
+  
    
   constructor(private http: HttpClient) {
     super();
    }
- 
+   
+   loginUser(email: string, password: string): Observable<User> {
+    throw new Error('Method not implemented.');
+  }
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.UsersUrl).pipe(
       catchError(this.handleError)

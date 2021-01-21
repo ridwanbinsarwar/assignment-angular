@@ -6,13 +6,14 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DataService } from './core/services/data.service';
 // import { HttpClientUserService } from '@app/core/';
 import { HttpClientUserService } from "./core/services/http-client-user.service";
 import { UserTransferService } from './core/services/user-transfer.service';
+import { ErrorInterceptor } from './helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,11 @@ import { UserTransferService } from './core/services/user-transfer.service';
     SharedModule,
     
   ],
-  providers: [HttpClientUserService, UserTransferService],
+  providers: [
+    HttpClientUserService, 
+    UserTransferService,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
