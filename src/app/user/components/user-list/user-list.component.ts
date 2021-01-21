@@ -27,8 +27,14 @@ export class UserListComponent implements OnInit {
  
   getUsers() {
     this.userService.getUsers().subscribe(data => { 
-      this.users = data;
-    
+      // this.users = data;
+      for (var i in data) {
+        
+        if(data[i].role[0] == '0'){
+          this.users.push(data[i]);
+        }
+      }
+
     });    
   }
 
