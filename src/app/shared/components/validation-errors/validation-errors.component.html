@@ -17,6 +17,10 @@
         Invalid email format
     </ng-container>
 
+    <ng-container *ngIf="control.hasError('uniqueEmail') && !control.hasError('required') && !control.hasError('email') ">
+        Email already exists
+    </ng-container>
+
     <ng-container *ngIf="control.hasError('whitespace') && !control.hasError('required') ">
         leading whitespace 
     </ng-container>

@@ -22,7 +22,7 @@ export class UpdateProfileComponent implements OnInit {
      ) {
     
       this.updatedRegistrationForm = formBuilder.group({
-      
+      id: [''],
       firstName: ['', [Validators.required, this.noWhitespaceValidator ]],
       lastName:  ['', [Validators.required, this.noWhitespaceValidator]],
       email:     ['', [Validators.required, Validators.email, Validators.pattern('[a-z0-9.@]*')]],
@@ -36,13 +36,13 @@ export class UpdateProfileComponent implements OnInit {
   ngOnInit(): void {
     const user = this.userTransferService.getUser();
     this.updatedRegistrationForm.setValue({
-      
+      id:         user?.id,
       firstName:  user?.firstName,
       lastName:   user?.lastName,
       email:      user?.email,
       password:   user?.password,
       role:       user?.role
-});
+    });
   }
 
   // Choose role using select dropdown
@@ -61,13 +61,14 @@ export class UpdateProfileComponent implements OnInit {
     // TODO: Use EventEmitter with form value
     console.warn(this.updatedRegistrationForm.value);
     if (this.updatedRegistrationForm.valid ) { 
+      const id = this.updatedRegistrationForm.get('id')?.value;
       const firstName = this.updatedRegistrationForm.get('firstName')?.value;
       const lastName = this.updatedRegistrationForm.get('lastName')?.value;
       const email = this.updatedRegistrationForm.get('email')?.value;
       const password = this.updatedRegistrationForm.get('password')?.value;
       const role = this.updatedRegistrationForm.get('role')?.value;
  
-      this.userService.updateUser(firstName, lastName, email, password, role).subscribe(data => {
+      this.userService.updateUser(id,firstName, lastName, email, password, this.roles[role[0]]).subscribe(data => {
         console.warn(data);
 
       });

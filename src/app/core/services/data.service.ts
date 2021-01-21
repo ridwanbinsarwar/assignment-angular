@@ -11,10 +11,10 @@ export class DataService implements InMemoryDbService{
   createDb(){
 
    let  users: User[] =  [
-    {  id:  "email1@ggmail.com",  firstName:  'PO1', lastName: 'lastName', email: "email1@ggmail.com", password: "password", role: "user"},
-    {  id:  "email2@ggmail.com",  firstName:  'PO1', lastName: 'lastName', email: "email2@ggmail.com", password: "password", role: "admin"},
-    {  id:  "email3@ggmail.com",  firstName:  'PO1', lastName: 'lastName', email: "email3@ggmail.com", password: "password", role: "user"},
-    {  id:  "email4@ggmail.com",  firstName:  'PO1', lastName: 'lastName', email: "email4@ggmail.com", password: "password", role: "user"}
+    {  id:  1,  firstName:  'PO1', lastName: 'lastName', email: "a1@g.com", password: "password", role: "USER"},
+    {  id:  2,  firstName:  'PO1', lastName: 'lastName', email: "a2@g.com", password: "password", role: "ADMIN"},
+    {  id:  3,  firstName:  'PO1', lastName: 'lastName', email: "email1@gmail.com", password: "password", role: "USER"},
+    {  id:  4,  firstName:  'PO1', lastName: 'lastName', email: "user1@tbuddy.com", password: "password", role: "ADMIN"}
    ];
 
    return {users};

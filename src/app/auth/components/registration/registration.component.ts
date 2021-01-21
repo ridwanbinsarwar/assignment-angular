@@ -23,14 +23,14 @@ export class RegistrationComponent implements OnInit {
       
       firstName: ['', [Validators.required, this.noWhitespaceValidator ]],
       lastName:  ['', [Validators.required, this.noWhitespaceValidator]],
-      email:     ['', [Validators.required, Validators.email, Validators.pattern('[a-z0-9.@]*')]],
+      email:     ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9_@.]*'),this.uniqueEmail.bind(this)]],
       password:  ['', [Validators.required, Validators.minLength(6), this.validatePassword, this.noWhitespaceValidator]],
       role:      ['',  Validators.required]
 
     });
    }
 
-  
+   
   ngOnInit(): void {}
 
   // Choose role using select dropdown
@@ -54,8 +54,7 @@ export class RegistrationComponent implements OnInit {
       const email = this.registrationForm.get('email')?.value;
       const password = this.registrationForm.get('password')?.value;
       const role = this.registrationForm.get('role')?.value;
- 
-      this.userService.addUser(firstName, lastName, email, password, role).subscribe(data => {
+      this.userService.addUser(firstName, lastName, email, password, this.roles[role[0]]).subscribe(data => {
         console.warn(data);
 
       });
@@ -78,6 +77,20 @@ export class RegistrationComponent implements OnInit {
       isValid = false;
     }
     return isValid ? null : { 'whitespace': true };
-}
+  }
+
+  public uniqueEmail(control: FormControl) {
+    let isValid: boolean = true;
+    
+    this.userService.searchUser(control.value).subscribe(data => { 
+      
+      if (data.length == 1 && data[0].email.length == control.value.length){
+        console.log(data)
+        control.setErrors({'uniqueEmail': true});
+      }
+    });
+    
+    return isValid ? null : { 'uniqueEmail': true };
+  }
 
 }

@@ -23,43 +23,50 @@ export class HttpClientUserService extends UserService {
   }
  
   // get by id - will 404 when id not found
-  getUser(email: string): Observable<User> {
-    const url = `${this.UsersUrl}/${email}`;
+  getUser(id: number): Observable<User> {
+    const url = `${this.UsersUrl}/${id}`;
     return this.http.get<User>(url).pipe(
       catchError(this.handleError)
     );
   }
  
   addUser(firstName: string, lastName: string, email: string, password: string, role: string): Observable<User> {
-    const User = { id:email, firstName, lastName, email, password, role };
- 
-    return this.http.post<User>(this.UsersUrl, User, cudOptions).pipe(
+    const user = { id:(User.count+1), firstName, lastName, email, password, role };
+    let x = this.http.post<User>(this.UsersUrl, user, cudOptions).pipe(
+      
       catchError(this.handleError)
+      
     );
+    User.count = User.count + 1;
+
+ 
+
+    return x;
   }
  
-  deleteUser(User: string | User): Observable<User> {
-    const email = typeof User === 'string' ? User : User.email;
+  deleteUser(email: number): Observable<User> {
+    // const id = typeof User === 'string' ? User : User.id;
     const url = `${this.UsersUrl}/${email}`;
- 
+    
     return this.http.delete<User>(url, cudOptions).pipe(
       catchError(this.handleError)
     );
   }
  
   searchUser(term: string): Observable<User[]> {
-    term = term.trim();
+    // term = term.trim();
     // add safe, encoded search parameter if term is present
-    const options = term ?
-    { params: new HttpParams().set('name', term)} : {};
- 
-    return this.http.get<User[]>(this.UsersUrl, options).pipe(
+    // const options = { params: new HttpParams().set('email', term)};
+    // console.log(term, )
+    return this.http.get<User[]>(`${this.UsersUrl}/?email=${encodeURIComponent(term)}`).pipe(
+
       catchError(this.handleError)
-    );
+    )
   }
  
-  updateUser(firstName: string, lastName: string, email: string, password: string, role: string): Observable<User> {
-    const User = {id:email, firstName, lastName, email, password, role };
+  updateUser(id: number, firstName: string, lastName: string, email: string, password: string, role: string): Observable<User> {
+
+    const User = {id:id, firstName, lastName, email, password, role };
     return this.http.put<User>(this.UsersUrl, User, cudOptions).pipe(
       catchError(this.handleError)
     );

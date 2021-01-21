@@ -28,13 +28,26 @@ export class UserListComponent implements OnInit {
   getUsers() {
     this.userService.getUsers().subscribe(data => { 
       this.users = data;
+      // for (var i in this.users) {
+      //   this.users[i].email = this.users[i].email.replace("-","@");
+      // }
+
     });    
   }
 
-  toUpdateUser(firstName: string, lastName: string, email: string, password: string, role: string) {      
-    const user = {id: email, firstName: firstName, lastName: lastName, email: email, password: password, role: role };
+  toUpdateUser(id: number, firstName: string, lastName: string, email: string, password: string, role: string) {      
+    const user = {id: id, firstName: firstName, lastName: lastName, email: email, password: password, role: role };
     this.userTransferService.setUser(user);
     this.router.navigateByUrl("/user/update");
+  }
+
+
+  deleteUser(id: number, firstName: string, lastName: string, email: string, password: string, role: string ) {   
+    if(confirm("Do you wish to delete " + name)) {
+      const user = {id: id, firstName: firstName, lastName: lastName, email: email, password: password, role: role };
+      this.userService.deleteUser(id).subscribe();  
+      this.getUsers();
+    }    
   }
 
 }
