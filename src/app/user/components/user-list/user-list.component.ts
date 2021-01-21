@@ -28,13 +28,12 @@ export class UserListComponent implements OnInit {
   getUsers() {
     this.userService.getUsers().subscribe(data => { 
       // this.users = data;
+      this.users = [];
       for (var i in data) {
-        
         if(data[i].role[0] == '0'){
           this.users.push(data[i]);
         }
       }
-
     });    
   }
 
@@ -46,10 +45,11 @@ export class UserListComponent implements OnInit {
 
 
   deleteUser(id: number, firstName: string, lastName: string, email: string, password: string, role: string ) {   
-    if(confirm("Do you wish to delete " + name)) {
+    if(confirm("Do you wish to delete " + email)) {
       const user = {id: id, firstName: firstName, lastName: lastName, email: email, password: password, role: role };
       this.userService.deleteUser(id).subscribe();  
       this.getUsers();
+      // this.router.navigateByUrl("/user/list");
     }    
   }
 
