@@ -54,7 +54,7 @@ export class RegistrationComponent implements OnInit {
       const email = this.registrationForm.get('email')?.value;
       const password = this.registrationForm.get('password')?.value;
       const role = this.registrationForm.get('role')?.value;
-      this.userService.addUser(firstName, lastName, email, password, this.roles[role[0]]).subscribe(data => {
+      this.userService.addUser(firstName, lastName, email, password, role).subscribe(data => {
         console.warn(data);
 
       });

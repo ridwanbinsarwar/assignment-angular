@@ -14,7 +14,7 @@
                 <th scope="row">{{ user.email }}</th>
                 <td  class="w-25 p-3">{{ user.firstName }}</td>
                 <td  class="w-25 p-3">{{ user.lastName }}</td>
-                <td  class="w-25 p-3">{{ user.role }}</td>
+                <td  class="w-25 p-3">{{ roles[+user.role[0]] }}</td>
 
                 <td>
                     <button type="button" class="btn btn-danger" 

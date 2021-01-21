@@ -68,7 +68,7 @@ export class UpdateProfileComponent implements OnInit {
       const password = this.updatedRegistrationForm.get('password')?.value;
       const role = this.updatedRegistrationForm.get('role')?.value;
  
-      this.userService.updateUser(id,firstName, lastName, email, password, this.roles[role[0]]).subscribe(data => {
+      this.userService.updateUser(id,firstName, lastName, email, password, role).subscribe(data => {
         console.warn(data);
 
       });

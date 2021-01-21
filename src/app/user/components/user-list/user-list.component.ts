@@ -14,7 +14,7 @@ import { UserTransferService } from '../../../core/services/user-transfer.servic
 export class UserListComponent implements OnInit {
 
   users: User[] = [];
- 
+  roles: any = ['USER', 'ADMIN']
   constructor(
     private userService: HttpClientUserService,
     private userTransferService: UserTransferService,
@@ -28,10 +28,7 @@ export class UserListComponent implements OnInit {
   getUsers() {
     this.userService.getUsers().subscribe(data => { 
       this.users = data;
-      // for (var i in this.users) {
-      //   this.users[i].email = this.users[i].email.replace("-","@");
-      // }
-
+    
     });    
   }
 
