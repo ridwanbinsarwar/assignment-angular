@@ -9,6 +9,6 @@ export abstract class UserService {
   abstract addUser(firstName: string, lastName: string, email: string, password: string, role: string): Observable<User>;
   abstract deleteUser(User: number): Observable<User>;
   abstract searchUser(term: string): Observable<User[]>;
-  abstract updateUser(id: number, firstName: string, lastName: string, email: string, password: string, role: string): Observable<User>;
+  abstract updateUser(user: User): Observable<User>;
   abstract loginUser(email: string, password: string): Observable<User>;
 }

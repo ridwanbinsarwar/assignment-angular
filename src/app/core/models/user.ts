@@ -6,6 +6,11 @@ export class User {
         public lastName = '',
         public email = '',
         public password = '',
+        public dob = '',
+        public gender = '',
+        public interest = '',
+        public address = '',
+        public phone = '',
         public role = ''
 
                 ) { } 

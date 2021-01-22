@@ -36,7 +36,8 @@ export class HttpClientUserService extends UserService {
   }
  
   addUser(firstName: string, lastName: string, email: string, password: string, role: string): Observable<User> {
-    const user = { id:(User.count+1), firstName, lastName, email, password, role };
+    const user = {id:(User.count+1), firstName:firstName, lastName:lastName, email:email, password:password, 
+      role:role, dob:'00-00-0000', gender:'selectGender', interest:'interest',address:'address', phone:'0000' }
     let x = this.http.post<User>(this.UsersUrl, user, cudOptions).pipe(
       
       catchError(this.handleError)
@@ -69,10 +70,9 @@ export class HttpClientUserService extends UserService {
     )
   }
  
-  updateUser(id: number, firstName: string, lastName: string, email: string, password: string, role: string): Observable<User> {
-
-    const User = {id:id, firstName, lastName, email, password, role };
-    return this.http.put<User>(this.UsersUrl, User, cudOptions).pipe(
+  updateUser(user: User): Observable<User> {
+    console.log(user);
+    return this.http.put<User>(this.UsersUrl, user, cudOptions).pipe(
       catchError(this.handleError)
     );
   }

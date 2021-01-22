@@ -27,6 +27,11 @@ export class UpdateProfileComponent implements OnInit {
       lastName:  ['', [Validators.required, this.noWhitespaceValidator]],
       email:     ['', [Validators.required, Validators.email, Validators.pattern('[a-z0-9.@]*')]],
       password:  ['', [Validators.required, Validators.minLength(6), this.validatePassword, this.noWhitespaceValidator]],
+      dob:       ['',  Validators.required],
+      gender:    ['',  Validators.required],
+      interest:  ['',  Validators.required],
+      address:   ['',  Validators.required],
+      phone:     ['',  Validators.required],
       role:      ['',  Validators.required]
 
     });
@@ -35,40 +40,51 @@ export class UpdateProfileComponent implements OnInit {
   
   ngOnInit(): void {
     const user = this.userTransferService.getUser();
+    console.log(user?.dob);
     this.updatedRegistrationForm.setValue({
       id:         user?.id,
       firstName:  user?.firstName,
       lastName:   user?.lastName,
       email:      user?.email,
       password:   user?.password,
+      dob:        user?.dob,
+      gender:     user?.gender,
+      interest:   user?.interest,
+      address:    user?.address,
+      phone:      user?.phone,
       role:       user?.role
     });
   }
 
-  // Choose role using select dropdown
   changeRole(e: any) {
     console.log(e.value)
     this.updatedRegistrationForm.get("role")?.setValue(e.target.value, {
       onlySelf: true
     })
   }
-  // Getter method to access formcontrols
   get roleName() {
     return this.updatedRegistrationForm.get('role');
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
     console.warn(this.updatedRegistrationForm.value);
     if (this.updatedRegistrationForm.valid ) { 
-      const id = this.updatedRegistrationForm.get('id')?.value;
+
+      const id =        this.updatedRegistrationForm.get('id')?.value;
       const firstName = this.updatedRegistrationForm.get('firstName')?.value;
-      const lastName = this.updatedRegistrationForm.get('lastName')?.value;
-      const email = this.updatedRegistrationForm.get('email')?.value;
-      const password = this.updatedRegistrationForm.get('password')?.value;
-      const role = this.updatedRegistrationForm.get('role')?.value;
- 
-      this.userService.updateUser(id,firstName, lastName, email, password, role).subscribe(data => {
+      const lastName =  this.updatedRegistrationForm.get('lastName')?.value;
+      const email =     this.updatedRegistrationForm.get('email')?.value;
+      const dob =       this.updatedRegistrationForm.get('dob')?.value;
+      const gender =    this.updatedRegistrationForm.get('gender')?.value;
+      const interest =  this.updatedRegistrationForm.get('interest')?.value;
+      const address =   this.updatedRegistrationForm.get('address')?.value;
+      const password =  this.updatedRegistrationForm.get('password')?.value;
+      const phone =     this.updatedRegistrationForm.get('phone')?.value;
+      const role =      this.updatedRegistrationForm.get('role')?.value;
+
+      const user = {id:id, firstName:firstName, lastName:lastName, email:email, password:password, role:role, dob:dob, gender:gender, interest:interest,address:address, phone:phone };
+      console.log(user);
+      this.userService.updateUser(user).subscribe(data => {
         console.warn(data);
 
       });

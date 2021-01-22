@@ -8,6 +8,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { SharedModule } from '../shared/shared.module';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     UserRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    DatePickerModule
   ]
 })
 export class UserModule { }
