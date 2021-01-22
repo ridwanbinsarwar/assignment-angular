@@ -20,6 +20,8 @@ export class AuthGuard implements CanActivate {
 
       let role = localStorage.getItem('role');
 
+      console.log(state.url, role);
+
       switch (true) {
         case state.url.endsWith('/user'):
           if (role == 'admin' || role == 'user'){
@@ -48,6 +50,16 @@ export class AuthGuard implements CanActivate {
           } else {
             this.router.navigate(['/auth/login']);
             return false;
+          }
+        case state.url.endsWith('/auth/login'):
+          if (role == 'admin'){
+            this.router.navigate(['/user/list']);
+            return false;
+          } else if(role == 'user'){
+            this.router.navigate(['/user/profile']);
+            return false;
+          }else {
+            return true;
           }
         default:
             // pass through any requests not handled above

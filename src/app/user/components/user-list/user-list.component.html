@@ -5,8 +5,7 @@
                 <th scope="col">email</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
-                <th scope="col">Role</th>
-
+                
             </tr>
         </thead>
         <tbody *ngFor="let user of users">
@@ -14,17 +13,15 @@
                 <th scope="row">{{ user.email }}</th>
                 <td  class="w-25 p-3">{{ user.firstName }}</td>
                 <td  class="w-25 p-3">{{ user.lastName }}</td>
-                <td  class="w-25 p-3">{{ roles[+user.role[0]] }}</td>
-
                 <td>
-                    <button type="button" class="btn btn-danger" 
+                    <button type="button" class="btn btn-danger" style="font-size: 14px;"
                         (click)="deleteUser(user.id, user.firstName, user.lastName, user.email, user.password, user.role)">
                         Delete
                     </button>
                 </td>
 
                 <td>
-                    <button type="button" class="btn btn-primary" 
+                    <button type="button" class="btn btn-primary" style="font-size: 14px;"
                         (click)="toUpdateUser(user.id, user.firstName, user.lastName, user.email, user.password, user.role)">
                         Edit
                     </button>
@@ -32,5 +29,7 @@
 
               </tr>
         </tbody>
+        
     </table>
+    <button type="button" class="btn btn-danger" (click)="signOut()" style="font-size: 20px;">Sign Out</button>
 </div>

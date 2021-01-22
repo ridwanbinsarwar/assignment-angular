@@ -52,5 +52,12 @@ export class UserListComponent implements OnInit {
       // this.router.navigateByUrl("/user/list");
     }    
   }
+  signOut(){
+    if(confirm("Do you wish to Sign Out ")) {
+      localStorage.removeItem('email');
+      localStorage.removeItem('role');
+      this.router.navigateByUrl("/auth/login");   
+    } 
+  }
 
 }

@@ -39,17 +39,9 @@ export class LoginComponent implements OnInit {
       const email = this.loginForm.get('email')?.value;
       const password = this.loginForm.get('password')?.value;
       
-      // try{
-        this.authService.login(email,password);
-        this.loginFail = true;
-        // this.loginFail();
-      // }
-      // catch(e){
-      //   this.loginFail = true;
-      // }
-      
+      this.authService.login(email,password);
+      this.loginFail = true;
 
-      // this.router.navigateByUrl("/user/list");
     }
   }
 
@@ -62,10 +54,9 @@ export class LoginComponent implements OnInit {
     return isValid ? null : { 'whitespace': true };
   }
 
-  // public loginFail() {
-  //   this.loginForm.get('email')?.setErrors({});
-  //   this.loginForm.get('password')?.setErrors({});
+  register(){
+    this.router.navigateByUrl("/auth/register");
 
-  // }
+  }
 
 }

@@ -13,7 +13,8 @@ import { DataService } from './core/services/data.service';
 // import { HttpClientUserService } from '@app/core/';
 import { HttpClientUserService } from "./core/services/http-client-user.service";
 import { UserTransferService } from './core/services/user-transfer.service';
-import { ErrorInterceptor } from './helpers/error.interceptor';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { AuthenticationInterceptor } from './_helpers/authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
   providers: [
     HttpClientUserService, 
     UserTransferService,
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
