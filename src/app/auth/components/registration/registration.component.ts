@@ -91,4 +91,9 @@ export class RegistrationComponent implements OnInit {
     return isValid ? null : { 'uniqueEmail': true };
   }
 
+  loginRoute(){
+    this.router.navigateByUrl("/auth/login");
+
+  }
+
 }
