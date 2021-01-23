@@ -1,27 +1,40 @@
 <!-- <ng-container *ngIf="errors && errors['required']"> Required</ng-container>
 <ng-container *ngIf="errors && errors['notUnique']">Already exists</ng-container>
 <ng-container *ngIf="errors && errors['email']">Please enter a valid email</ng-container> -->
-<ng-container *ngIf="control && control.invalid && control.errors && 
-        (control.dirty || control.touched)">
-    <ng-container *ngIf="control.hasError('required')">This field is required</ng-container>
-    
-    <ng-container *ngIf="control.hasError('minlength')">
-        The minimum length for this field is {{control.errors.minlength.requiredLength}} characters
-    </ng-container>
+<ng-container
+  *ngIf="control && control.invalid && control.errors && 
+        (control.dirty || control.touched)"
+>
+  <ng-container *ngIf="control.hasError('required')"
+    >This field is required</ng-container
+  >
 
-    <ng-container *ngIf="control.hasError('notStrong') && !control.hasError('minlength') ">
-        password should contain at least one punctuation
-    </ng-container>
+  <ng-container *ngIf="control.hasError('minlength')">
+    The minimum length for this field is
+    {{control.errors.minlength.requiredLength}} characters
+  </ng-container>
 
-    <ng-container *ngIf="control.hasError('email') && !control.hasError('required') ">
-        Invalid email format
-    </ng-container>
+  <ng-container
+    *ngIf="control.hasError('notStrong') && !control.hasError('minlength') "
+  >
+    password should contain at least one number
+  </ng-container>
 
-    <ng-container *ngIf="control.hasError('uniqueEmail') && !control.hasError('required') && !control.hasError('email') ">
-        Email already exists
-    </ng-container>
+  <ng-container
+    *ngIf="control.hasError('email') && !control.hasError('required') "
+  >
+    Invalid email format
+  </ng-container>
 
-    <ng-container *ngIf="control.hasError('whitespace') && !control.hasError('required') ">
-        leading whitespace 
-    </ng-container>
+  <ng-container
+    *ngIf="control.hasError('uniqueEmail') && !control.hasError('required') && !control.hasError('email') "
+  >
+    Email already exists
+  </ng-container>
+
+  <ng-container
+    *ngIf="control.hasError('whitespace') && !control.hasError('required') "
+  >
+    leading whitespace
+  </ng-container>
 </ng-container>

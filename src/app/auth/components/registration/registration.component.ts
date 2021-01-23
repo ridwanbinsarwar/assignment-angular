@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms'
 import { Router } from '@angular/router';
 import { HttpClientUserService } from '../../../core/services/http-client-user.service';
+import { FormValidationService } from '../../../core/services/form-validation.service';
 
 
 @Component({
@@ -17,14 +18,15 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: HttpClientUserService, 
+    private validationService: FormValidationService, 
     public formBuilder: FormBuilder, ) {
     
       this.registrationForm = formBuilder.group({
       
-      firstName: ['', [Validators.required, this.noWhitespaceValidator ]],
-      lastName:  ['', [Validators.required, this.noWhitespaceValidator]],
+      firstName: ['', [Validators.required, this.validationService.noWhitespaceValidator ]],
+      lastName:  ['', [Validators.required, this.validationService.noWhitespaceValidator]],
       email:     ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9_@.]*'),this.uniqueEmail.bind(this)]],
-      password:  ['', [Validators.required, Validators.minLength(6), this.validatePassword, this.noWhitespaceValidator]],
+      password:  ['', [Validators.required, Validators.minLength(6), this.validationService.validatePassword, this.validationService.noWhitespaceValidator]],
       role:      ['',  Validators.required]
 
     });
@@ -60,22 +62,6 @@ export class RegistrationComponent implements OnInit {
 
       this.router.navigateByUrl("/auth/login");
     }
-  }
-
-   // custom validator to check if password is strong
-   validatePassword(control: FormControl): {[key: string]: any} | null  {
-    if (control.value && control.value.length < 8) {
-      return { 'notStrong': {message: "password must containt number"} };
-    }
-    return null;
-  }
-
-  public noWhitespaceValidator(control: FormControl) {
-    let isValid: boolean = true;
-    if (control.value.charAt(0) == ' '){
-      isValid = false;
-    }
-    return isValid ? null : { 'whitespace': true };
   }
 
   public uniqueEmail(control: FormControl) {
