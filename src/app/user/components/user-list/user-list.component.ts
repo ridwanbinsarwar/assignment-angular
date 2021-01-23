@@ -14,7 +14,9 @@ import { UserTransferService } from '../../../core/services/user-transfer.servic
 export class UserListComponent implements OnInit {
 
   users: User[] = [];
-  roles: any = ['USER', 'ADMIN']
+  roles: any = ['USER', 'ADMIN'];
+  items = [];
+  pageOfItems!: Array<any>;
   constructor(
     private userService: HttpClientUserService,
     private userTransferService: UserTransferService,
@@ -69,6 +71,19 @@ export class UserListComponent implements OnInit {
       localStorage.removeItem('role');
       this.router.navigateByUrl("/auth/login");   
     } 
+  }
+
+
+  onChangePage(pageOfItems: Array<any>) {
+      // update current page of items
+      console.log(pageOfItems);
+      console.log(pageOfItems);
+      this.pageOfItems = pageOfItems;
+  }
+
+  sortUsers(){
+    this.pageOfItems.sort((a, b) => (a.firstName > b.firstName) ? 1 : -1)
+    
   }
 
 }

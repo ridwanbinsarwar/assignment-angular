@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { JwPaginationComponent, JwPaginationModule } from 'jw-angular-pagination';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
     UserRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    DatePickerModule
+    DatePickerModule,
+    JwPaginationModule
   ]
 })
 export class UserModule { }

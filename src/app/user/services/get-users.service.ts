@@ -3,10 +3,7 @@ import { HttpClientUserService } from "../../core/services/http-client-user.serv
 import { User } from "../../core/models/user";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { concatMap, delay } from 'rxjs/operators';
-import { Observer } from 'rxjs/Observer';
 
-import 'rxjs/Rx';
 
 @Injectable({
   providedIn: 'root'
