@@ -4,8 +4,8 @@ import { HttpClientUserService } from '../../../core/services/http-client-user.s
 import { User } from '../../../core/models/user';
 
 import { ProfileService } from '../../services/profile.service';
-import { UserTransferService } from '@app/coreservices/user-transfer.service';
-import { NavigationStart, Router } from '@angular/router';
+import { UserTransferService } from '../../../core/services/user-transfer.service';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,24 +16,21 @@ export class UserProfileComponent implements OnInit {
   data: {} | undefined;
   users: User[] = [];
   constructor(
-    private profileService: ProfileService,
     private userService: HttpClientUserService,
     private userTransferService: UserTransferService,
-    private router: Router
-
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    let email = localStorage.getItem('email');
-    if (email != null){
-      this.userService.searchUser(email).subscribe(data =>{
-        this.users[0] = data[0];
-      })
-    }  
+    this.activatedRoute.data.subscribe((data)=>{
+      this.users = data.users;
+    });
   }
 
   toUpdateUser(user: User) {  
-    console.log(user.email);
+    
+    console.log(user);
     this.userTransferService.setUser(user);
     this.router.navigateByUrl("/user/update");   
   }

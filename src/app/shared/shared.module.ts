@@ -6,6 +6,9 @@ import { ValidationErrorsComponent } from './components/validation-errors/valida
 import { CustomDatePickerComponent } from './components/custom-date-picker/custom-date-picker.component';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserInformationComponent } from './components/user-information/user-information.component';
+import { DateDirective } from './date.directive';
+import { RolePipe } from './role.pipe';
 
 
 
@@ -14,7 +17,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     ValidationErrorsComponent,
-    CustomDatePickerComponent
+    CustomDatePickerComponent,
+    UserInformationComponent,
+    DateDirective,
+    RolePipe
   ],
   imports: [
     CommonModule,
@@ -26,7 +32,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     ValidationErrorsComponent,
-    CustomDatePickerComponent
+    CustomDatePickerComponent,
+    UserInformationComponent,
+    DateDirective,
+    RolePipe
   ]
 })
 export class SharedModule { }

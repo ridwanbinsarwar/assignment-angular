@@ -2,20 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClientUserService } from "../../core/services/http-client-user.service";
 import { User } from "../../core/models/user";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { concatMap, delay } from 'rxjs/operators';
+import { Observer } from 'rxjs/Observer';
 
+import 'rxjs/Rx';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService implements Resolve<User[]>{
+export class GetUsersService implements Resolve<User[]>{
   users: User[] = [];
-
+  user!: User;
+  user1 = {id:1, firstName:"firstName", lastName:"lastName", email:"email", password:"password", 
+    role:"role", dob:'00-00-0000', gender:'selectGender', interest:'interest',address:'address', phone:'0000' }
   constructor(private userService: HttpClientUserService) { }
+  
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): User[] | Observable<User[]> | Promise<User[]> {
-    
-    let email = localStorage.getItem('email');
-    let x = this.userService.searchUser(email!);
+
+    let x = this.userService.getUsers();
+    console.log(x);
     return x;
   }
   

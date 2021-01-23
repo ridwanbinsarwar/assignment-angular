@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user';
 // import { HttpClientUserService } from '@app/core/';
 import { HttpClientUserService } from '../../../core/services/http-client-user.service';
@@ -18,11 +18,20 @@ export class UserListComponent implements OnInit {
   constructor(
     private userService: HttpClientUserService,
     private userTransferService: UserTransferService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
     ) { }
  
   ngOnInit() {
-    this.getUsers();
+    this.activatedRoute.data.subscribe((data)=>{
+      this.users = [];
+      data = data.users;
+      for (var i in data) {
+        if(data[i].role[0] == '0'){
+          this.users.push(data[i]);
+        }
+      }
+    });
   }
  
   getUsers() {
@@ -34,7 +43,9 @@ export class UserListComponent implements OnInit {
           this.users.push(data[i]);
         }
       }
-    });    
+    });   
+    
+    
   }
 
   toUpdateUser(user: User) {      

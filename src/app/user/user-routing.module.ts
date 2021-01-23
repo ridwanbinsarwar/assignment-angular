@@ -5,12 +5,28 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserComponent } from './user.component';
 import { AuthGuard } from '../_helpers/auth.guard';
+import { ProfileService } from './services/profile.service';
+import { GetUsersService } from './services/get-users.service';
 
 const routes: Routes = [
-  { path: '', component: UserComponent },
-  { path: 'list', component: UserListComponent,canActivate: [AuthGuard] },
-  { path: 'profile', component: UserProfileComponent,canActivate: [AuthGuard] },
-  { path: 'update', component: UpdateProfileComponent,canActivate: [AuthGuard] }
+  { path: '', 
+  component: UserComponent 
+  },
+  { path: 'list', 
+  component: UserListComponent,
+  canActivate: [AuthGuard] ,
+  resolve: {users: GetUsersService} 
+  },
+  { 
+    path: 'profile', 
+    component: UserProfileComponent,
+    canActivate: [AuthGuard],
+    resolve: {users: ProfileService} 
+  },
+  { path: 'update', 
+  component: UpdateProfileComponent,
+  canActivate: [AuthGuard] 
+  }
 
 ];
 

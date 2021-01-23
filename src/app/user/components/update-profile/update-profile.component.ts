@@ -40,7 +40,7 @@ export class UpdateProfileComponent implements OnInit {
   
   ngOnInit(): void {
     const user = this.userTransferService.getUser();
-    console.log(user?.dob);
+    // console.log(user);
     this.updatedRegistrationForm.setValue({
       id:         user?.id,
       firstName:  user?.firstName,
