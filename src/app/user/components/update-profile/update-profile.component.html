@@ -35,6 +35,9 @@
               placeholder="Email"
               formControlName="email"
             />
+            <app-validation-errors
+              [control]="updatedRegistrationForm.get('e')!"
+            ></app-validation-errors>
           </div>
 
           <div class="col-md-6">
