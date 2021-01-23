@@ -34,13 +34,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     if (this.loginForm.valid ) { 
-
-      const email = this.loginForm.get('email')?.value;
-      const password = this.loginForm.get('password')?.value;
-      
-      this.authService.login(email,password);
-      this.loginFail = true;
-
+      this.login();
     }
   }
 
@@ -55,6 +49,15 @@ export class LoginComponent implements OnInit {
 
   register(){
     this.router.navigateByUrl("/auth/register");
+
+  }
+
+  async login(){
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+    let data = await this.authService.login(email,password);
+    if (!data)
+      this.loginFail = true;
 
   }
 
