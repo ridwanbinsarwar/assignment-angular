@@ -18,7 +18,6 @@ export class GetUsersService implements Resolve<User[]>{
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): User[] | Observable<User[]> | Promise<User[]> {
 
     let x = this.userService.getUsers();
-    console.log(x);
     return x;
   }
   

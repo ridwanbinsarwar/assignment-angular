@@ -10,7 +10,7 @@ import { GetUsersService } from './services/get-users.service';
 
 const routes: Routes = [
   { path: '', 
-  component: UserComponent 
+  redirectTo: '/user/list', pathMatch: 'full'
   },
   { path: 'list', 
   component: UserListComponent,

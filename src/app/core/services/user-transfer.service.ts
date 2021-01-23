@@ -12,7 +12,6 @@ export class UserTransferService {
   }
  
   setUser(user: User) {
-    // console.log(user)
     this.user = user;
   }
  

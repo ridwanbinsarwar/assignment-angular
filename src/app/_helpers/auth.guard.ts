@@ -16,11 +16,9 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      // localStorage.removeItem('email');
 
       let role = localStorage.getItem('role');
 
-      console.log(state.url, role);
 
       switch (true) {
         case state.url.endsWith('/user'):

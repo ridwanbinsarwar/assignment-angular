@@ -27,11 +27,11 @@ export class UpdateProfileComponent implements OnInit {
       lastName:  ['', [Validators.required, this.noWhitespaceValidator]],
       email:     ['', [Validators.required, Validators.email, Validators.pattern('[a-z0-9.@]*')]],
       password:  ['', [Validators.required, Validators.minLength(6), this.validatePassword, this.noWhitespaceValidator]],
-      dob:       ['',  Validators.required],
-      gender:    ['',  Validators.required],
-      interest:  ['',  Validators.required],
-      address:   ['',  Validators.required],
-      phone:     ['',  Validators.required],
+      dob:       ['', ],
+      gender:    ['', ],
+      interest:  ['', ],
+      address:   ['', ],
+      phone:     ['', ],
       role:      ['',  Validators.required]
 
     });
@@ -67,7 +67,6 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    console.warn(this.updatedRegistrationForm.value);
     if (this.updatedRegistrationForm.valid ) { 
 
       const id =        this.updatedRegistrationForm.get('id')?.value;
@@ -83,10 +82,9 @@ export class UpdateProfileComponent implements OnInit {
       const role =      this.updatedRegistrationForm.get('role')?.value;
 
       const user = {id:id, firstName:firstName, lastName:lastName, email:email, password:password, role:role, dob:dob, gender:gender, interest:interest,address:address, phone:phone };
-      console.log(user);
+      
       this.userService.updateUser(user).subscribe(data => {
-        console.warn(data);
-
+        
       });
 
       this.router.navigateByUrl("/user/list");

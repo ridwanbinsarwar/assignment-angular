@@ -12,15 +12,10 @@ const cudOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/jso
  
 export class HttpClientUserService extends UserService {
   
-  
-   
   constructor(private http: HttpClient) {
     super();
    }
    
-   loginUser(email: string, password: string): Observable<User> {
-    throw new Error('Method not implemented.');
-  }
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.UsersUrl).pipe(
       catchError(this.handleError)
@@ -44,26 +39,17 @@ export class HttpClientUserService extends UserService {
       
     );
     User.count = User.count + 1;
-
- 
-
     return x;
   }
  
   deleteUser(email: number): Observable<User> {
-    // const id = typeof User === 'string' ? User : User.id;
     const url = `${this.UsersUrl}/${email}`;
-    
     return this.http.delete<User>(url, cudOptions).pipe(
       catchError(this.handleError)
     );
   }
  
   searchUser(term: string): Observable<User[]> {
-    // term = term.trim();
-    // add safe, encoded search parameter if term is present
-    // const options = { params: new HttpParams().set('email', term)};
-    // console.log(term, )
     return this.http.get<User[]>(`${this.UsersUrl}/?email=${encodeURIComponent(term)}`).pipe(
 
       catchError(this.handleError)
@@ -71,7 +57,6 @@ export class HttpClientUserService extends UserService {
   }
  
   updateUser(user: User): Observable<User> {
-    console.log(user);
     return this.http.put<User>(this.UsersUrl, user, cudOptions).pipe(
       catchError(this.handleError)
     );

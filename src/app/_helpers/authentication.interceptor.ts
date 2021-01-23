@@ -20,14 +20,12 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       ROLE = "null"
     if (EMAIL == null)
       EMAIL = "null"
-    // console.warn(request);
+
     let headers = request.headers
     .set('ROLE', ROLE)
     .set('EMAIL', EMAIL);
 
     const cloneReq = request.clone({ headers : headers });
-    console.warn(cloneReq);
-
     return next.handle(cloneReq);
   }
 }

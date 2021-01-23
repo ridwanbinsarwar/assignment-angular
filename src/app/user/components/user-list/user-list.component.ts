@@ -76,8 +76,6 @@ export class UserListComponent implements OnInit {
 
   onChangePage(pageOfItems: Array<any>) {
       // update current page of items
-      console.log(pageOfItems);
-      console.log(pageOfItems);
       this.pageOfItems = pageOfItems;
   }
 
