@@ -28,7 +28,7 @@ export class UpdateProfileComponent implements OnInit {
       id: [''],
       firstName: ['', [Validators.required, this.validationService.noWhitespaceValidator ]],
       lastName:  ['', [Validators.required, this.validationService.noWhitespaceValidator]],
-      email:     ['', [Validators.required, Validators.email, Validators.pattern('[a-z0-9.@]*')]],
+      email:     ['', [Validators.required, Validators.email, Validators.pattern('[a-z0-9.@]*'),this.uniqueEmail.bind(this)]],
       password:  ['', [Validators.required, Validators.minLength(6), this.validationService.validatePassword, this.validationService.noWhitespaceValidator]],
       dob:       ['', ],
       gender:    ['', ],
@@ -93,6 +93,21 @@ export class UpdateProfileComponent implements OnInit {
       this.router.navigateByUrl("/user/list");
     }
   }
+
+
+    public uniqueEmail(control: FormControl) {
+    let isValid: boolean = true;
+    let cemail = localStorage.getItem('email');
+    this.userService.searchUser(control.value).subscribe(data => { 
+      
+      if (data.length == 1 && data[0].email.length == control.value.length){
+        if (data[0].email != cemail)
+          control.setErrors({'uniqueEmail': true});
+      }
+    });
+    
+    return isValid ? null : { 'uniqueEmail': true };
+    }
 
 
 }
