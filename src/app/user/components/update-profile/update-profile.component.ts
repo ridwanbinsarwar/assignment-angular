@@ -14,7 +14,7 @@ export class UpdateProfileComponent implements OnInit {
 
   public updatedRegistrationForm: FormGroup;
   roles: any = ['USER', 'ADMIN']
-
+  cemail: string;
   constructor(
     private router: Router,
     private userService: HttpClientUserService, 
@@ -57,6 +57,8 @@ export class UpdateProfileComponent implements OnInit {
       phone:      user?.phone,
       role:       user?.role
     });
+
+    this.cemail =  user?.email;
   }
 
   changeRole(e: any) {
@@ -97,11 +99,11 @@ export class UpdateProfileComponent implements OnInit {
 
     public uniqueEmail(control: FormControl) {
     let isValid: boolean = true;
-    let cemail = localStorage.getItem('email');
+    
     this.userService.searchUser(control.value).subscribe(data => { 
-      
+      // console.log(this.cemail);
       if (data.length == 1 && data[0].email.length == control.value.length){
-        if (data[0].email != cemail)
+        if (data[0].email != this.cemail)
           control.setErrors({'uniqueEmail': true});
       }
     });
