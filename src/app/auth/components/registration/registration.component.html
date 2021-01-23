@@ -1,5 +1,5 @@
 <div class="container">
-    <h4 class="pb-2">Registration Form</h4>
+    <h4 class="pb-2">Create a new user</h4>
 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
    
     <div class="form-group">
@@ -17,6 +17,7 @@
         <app-validation-errors [control]="registrationForm.get('lastName')!"></app-validation-errors>
   
     </div>
+    
    
     <div class="form-group">
       <label for="email">Email address</label>
