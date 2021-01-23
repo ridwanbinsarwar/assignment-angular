@@ -35,7 +35,7 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<boolean> {
     let data = await this.getUser(email, password);
-    console.log(data, "gg");
+    // console.log(data, "gg");
     if (data.length == 1) {
       if (data[0].password == password) {
         localStorage.setItem("email", email);
