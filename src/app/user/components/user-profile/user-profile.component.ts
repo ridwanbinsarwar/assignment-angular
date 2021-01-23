@@ -1,16 +1,16 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { HttpClientUserService } from '../../../core/services/http-client-user.service';
-import { User } from '../../../core/models/user';
+import { HttpClient } from "@angular/common/http";
+import { Component, OnInit } from "@angular/core";
+import { HttpClientUserService } from "../../../core/services/http-client-user.service";
+import { User } from "../../../core/models/user";
 
-import { ProfileService } from '../../services/profile.service';
-import { UserTransferService } from '../../../core/services/user-transfer.service';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import { ProfileService } from "../../services/profile.service";
+import { UserTransferService } from "../../../core/services/user-transfer.service";
+import { ActivatedRoute, NavigationStart, Router } from "@angular/router";
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: "app-user-profile",
+  templateUrl: "./user-profile.component.html",
+  styleUrls: ["./user-profile.component.css"]
 })
 export class UserProfileComponent implements OnInit {
   data: {} | undefined;
@@ -20,27 +20,30 @@ export class UserProfileComponent implements OnInit {
     private userTransferService: UserTransferService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe((data)=>{
+    this.activatedRoute.data.subscribe(data => {
       this.users = data.users;
     });
+
+    if (this.users.length == 0) {
+      localStorage.removeItem("role");
+      localStorage.removeItem("email");
+      this.router.navigateByUrl("/auth/login");
+    }
   }
 
-  toUpdateUser(user: User) {  
-    
-    console.log(user);
+  toUpdateUser(user: User) {
     this.userTransferService.setUser(user);
-    this.router.navigateByUrl("/user/update");   
+    this.router.navigateByUrl("/user/update");
   }
 
-  signOut() {   
-    if(confirm("Do you wish to Sign Out ")) {
-        localStorage.removeItem('email');
-        localStorage.removeItem('role');
-        this.router.navigateByUrl("/auth/login");   
-    }    
+  signOut() {
+    if (confirm("Do you wish to Sign Out ")) {
+      localStorage.removeItem("email");
+      localStorage.removeItem("role");
+      this.router.navigateByUrl("/auth/login");
+    }
   }
-
 }

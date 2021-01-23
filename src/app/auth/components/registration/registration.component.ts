@@ -35,7 +35,7 @@ export class RegistrationComponent implements OnInit {
 
   // Choose role using select dropdown
   changeRole(e: any) {
-    console.log(e.value)
+    
     this.registrationForm.get("role")?.setValue(e.target.value, {
       onlySelf: true
     })
@@ -47,7 +47,7 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
-    console.warn(this.registrationForm.value);
+    
     if (this.registrationForm.valid ) { 
       const firstName = this.registrationForm.get('firstName')?.value;
       const lastName = this.registrationForm.get('lastName')?.value;
@@ -55,8 +55,7 @@ export class RegistrationComponent implements OnInit {
       const password = this.registrationForm.get('password')?.value;
       const role = this.registrationForm.get('role')?.value;
       this.userService.addUser(firstName, lastName, email, password, role).subscribe(data => {
-        console.warn(data);
-
+        
       });
 
       this.router.navigateByUrl("/auth/login");
@@ -85,7 +84,6 @@ export class RegistrationComponent implements OnInit {
     this.userService.searchUser(control.value).subscribe(data => { 
       
       if (data.length == 1 && data[0].email.length == control.value.length){
-        console.log(data)
         control.setErrors({'uniqueEmail': true});
       }
     });
