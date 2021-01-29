@@ -32,7 +32,7 @@ export class HttpClientUserService extends UserService {
  
   addUser(firstName: string, lastName: string, email: string, password: string, role: string): Observable<User> {
     const user = {id:(User.count+1), firstName:firstName, lastName:lastName, email:email, password:password, 
-      role:role, dob:'00-00-0000', gender:'selectGender', interest:'interest',address:'address', phone:'0000' }
+      role:role, dob:'', gender:'', interest:'',address:'', phone:'' }
     let x = this.http.post<User>(this.UsersUrl, user, cudOptions).pipe(
       
       catchError(this.handleError)

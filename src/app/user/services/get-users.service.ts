@@ -9,10 +9,10 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class GetUsersService implements Resolve<User[]>{
-  users: User[] = [];
-  user!: User;
-  user1 = {id:1, firstName:"firstName", lastName:"lastName", email:"email", password:"password", 
-    role:"role", dob:'00-00-0000', gender:'selectGender', interest:'interest',address:'address', phone:'0000' }
+  // users: User[] = [];
+  // user!: User;
+  // user1 = {id:1, firstName:"firstName", lastName:"lastName", email:"email", password:"password", 
+  //   role:"", dob:'', gender:'', interest:'',address:'', phone:'' }
   constructor(private userService: HttpClientUserService) { }
   
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): User[] | Observable<User[]> | Promise<User[]> {

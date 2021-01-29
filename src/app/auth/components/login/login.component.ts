@@ -19,8 +19,6 @@ export class LoginComponent implements OnInit {
     public formBuilder: FormBuilder, ) {
     
       this.loginForm = formBuilder.group({
-      
-     
       email:     ['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9_@.]*')]],
       password:  ['', [Validators.required, Validators.minLength(6),this.noWhitespaceValidator]]
 
@@ -30,14 +28,12 @@ export class LoginComponent implements OnInit {
    
   ngOnInit(): void {}
 
-
   onSubmit() {
     // TODO: Use EventEmitter with form value
     if (this.loginForm.valid ) { 
       this.login();
     }
   }
-
 
   public noWhitespaceValidator(control: FormControl) {
     let isValid: boolean = true;
@@ -49,7 +45,6 @@ export class LoginComponent implements OnInit {
 
   register(){
     this.router.navigateByUrl("/auth/register");
-
   }
 
   async login(){
